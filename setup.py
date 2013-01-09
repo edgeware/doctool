@@ -1,0 +1,19 @@
+from distutils.core import setup
+
+setup(
+    name='doctool',
+    version='0.1',
+    py_modules=['doctool'],
+    package_data={'doctool': ['style/*']},
+    entry_points={
+        'console_scripts': [
+            'doctool = doctool:main'
+        ]},
+    install_requires=[
+        'markdown',
+        'jsontemplate',
+        'python-markdown-graphviz'
+    ],
+    dependency_links=[
+        'https://github.com/mikaellanger/python-markdown-graphviz/archive/master.tar.gz#egg=python-markdown-graphviz-master']
+)

@@ -1,0 +1,73 @@
+body {
+    font-family: Georgia, FreeSerif, Times, serif;
+    color: #222;
+    font-size: 0.9375em;
+    line-height: 1.4667em;
+    margin: 0;
+    padding: 0em;
+}
+
+h1,h2,h3,h4,h5 {
+    text-rendering: optimizeLegibility;
+}
+
+h1 {
+    color: #000;
+    font-size: 2.55em;
+    line-height: 1.375em;
+}
+
+h2 {
+    font-size: 1.9em;
+    line-height: 1.227em;
+}
+
+.front {
+    font-size: 1.5em;
+}
+
+a:link {
+    color: #0050c0;
+}
+
+body {
+    max-width: 50em;
+    padding: 6em;
+    text-align: left;
+}
+
+code {
+    background-color: #f8f8ff;
+    border: 1px solid #dedede;
+    padding: 0 0.2em;
+    font-size: 0.95em;
+    font-family: Monaco, Consolas, "Lucida Console", monospace;
+}
+
+pre code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+pre {
+    padding: 2em 1.6em 2em 1.2em;
+    margin: 0em 0 1.1em;
+    background: #F8F8F8;
+    border: 1px solid #E8E8E8;
+}
+
+dd {
+    margin-bottom: 1em;
+}
+
+dd p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+td, th {
+    font-weight: normal;
+    padding-right: 0.7em;
+    text-align: left;
+}

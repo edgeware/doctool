@@ -3,11 +3,11 @@ from distutils.core import setup
 setup(
     name='doctool',
     version='0.1',
-    py_modules=['doctool'],
+    packages=['doctool'],
     package_data={'doctool': ['style/*']},
     entry_points={
         'console_scripts': [
-            'doctool = doctool:main'
+            'doctool = doctool.doctool:main'
         ]},
     install_requires=[
         'markdown',

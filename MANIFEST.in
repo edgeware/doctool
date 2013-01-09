@@ -1,1 +1,1 @@
-recursive-include *.css
+recursive-include style *.css

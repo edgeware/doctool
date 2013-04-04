@@ -10,6 +10,7 @@ import jsontemplate
 import os.path
 import re
 import sys
+from optparse import OptionParser
 
 html_wrap = """\
 <html>
@@ -120,19 +121,19 @@ def _convert(files):
     return md.convert(''.join(text))
 
 
-def _load_css(fname):
+def _load_css(fname, css_directory):
     css = open(os.path.join(
-            os.path.dirname(__file__), 'style', fname)).readlines()
+            os.path.dirname(__file__), css_directory, fname)).readlines()
     return ''.join((' ' * 6) + l for l in css).strip()
 
 
-def build_single_file(infile, outfile):
+def build_single_file(infile, outfile, css_directory):
     files = []
     _find_files(files, infile)
     text = _convert(files)
 
-    screen_css = _load_css('style.css')
-    print_css = _load_css('print.css')
+    screen_css = _load_css('style.css', css_directory)
+    print_css = _load_css('print.css', css_directory)
 
     html = jsontemplate.expand(html_wrap, {
             'content': text,
@@ -145,14 +146,22 @@ def build_single_file(infile, outfile):
 def main(argv=None):
     if argv is None:
         argv = sys.argv
-    if len(argv) == 2:
-        argv.append(os.path.splitext(argv[1])[0] + '.html')
-    if len(argv) != 3:
-        print "Usage: doctool <infile> [outfile]"
-        return 1
-    build_single_file(argv[1], argv[2])
-    return 0
 
+    parser = OptionParser(usage="Usage: %prog [options] <infile> [outfile]")
+    parser.add_option("-c", "--css",
+                      dest="css_directory",
+                      default="style",
+                      help="Where to look for CSS files")
+    (options, args) = parser.parse_args(argv)
+
+    if len(args) == 2:
+        args.append(os.path.splitext(args[1])[0] + '.html')
+    if len(args) != 3:
+        parser.error("wrong number of arguments")
+        return 1
+
+    build_single_file(args[1], args[2], options.css_directory)
+    return 0
 
 if __name__ == '__main__':
     sys.exit(main())

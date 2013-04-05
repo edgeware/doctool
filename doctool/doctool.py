@@ -38,6 +38,11 @@ header_regexp = re.compile("^(#+) (.+)", re.MULTILINE)
 
 internal_link_regexp = re.compile("(\[\]\((#.+?)\))")
 
+DEBUG = None
+
+def _debug(msg):
+    if DEBUG:
+        print msg
 
 def _find_files(seen, filename):
     seen.append(filename)
@@ -104,8 +109,34 @@ def _number_headers(text):
 
 def _convert(files):
     text = []
+
+    # set to True as we don't want the newline-mechanism to kick in
+    # on the first read file.
+    trailing_newline_in_previous_file = True
+
+    # Save the previous files name for debugging purposes
+    previous_filename = None
+
     for filename in files:
-        text.append(open(filename).read().decode('utf-8'))
+        with open(filename) as f:
+            file_text = f.read().decode('utf-8')
+
+            # If a previously read file does not end with a newline and
+            # the next file does not begin with one, then the two lines
+            # will be concatenated.
+            if not trailing_newline_in_previous_file \
+            and not file_text.startswith("\n"):
+                _debug("Info: Appending missing newline between '%s' and '%s'"
+                       % (previous_filename, filename))
+                text.append("\n")
+
+            if not file_text.endswith("\n"):
+                _debug("Warning: %s has no trailing newline." % filename)
+                trailing_newline_in_previous_file = False
+
+            text.append(file_text)
+            previous_filename = filename
+
     text = include_regexp.sub('', ''.join(text))
     text = _number_headers(text)
     text = _resolve_internal_links(text)
@@ -152,6 +183,11 @@ def main(argv=None):
                       dest="css_directory",
                       default="style",
                       help="Where to look for CSS files")
+    parser.add_option("-d", "--debug",
+                      action="store_true",
+                      dest="debug",
+                      default=False,
+                      help="Turn on debugging")
     (options, args) = parser.parse_args(argv)
 
     if len(args) == 2:
@@ -159,6 +195,9 @@ def main(argv=None):
     if len(args) != 3:
         parser.error("wrong number of arguments")
         return 1
+
+    global DEBUG
+    DEBUG = options.debug
 
     build_single_file(args[1], args[2], options.css_directory)
     return 0

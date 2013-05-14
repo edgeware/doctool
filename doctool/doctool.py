@@ -154,7 +154,7 @@ def _convert(files):
 
 def _load_css(fname, css_directory):
     path = os.path.dirname(__file__) if css_directory is None else os.getcwd()
-    css_directory = css_directory if css_directory else ''
+    css_directory = css_directory if css_directory else 'style'
     css = open(os.path.join(path, css_directory, fname)).readlines()
     return ''.join((' ' * 6) + l for l in css).strip()
 

@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='doctool',
-    version='0.3',
+    version='0.4',
     packages=['doctool'],
     package_data={'doctool': ['style/*']},
     entry_points={

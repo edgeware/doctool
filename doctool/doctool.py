@@ -153,8 +153,9 @@ def _convert(files):
 
 
 def _load_css(fname, css_directory):
-    css = open(os.path.join(
-            os.path.dirname(__file__), css_directory, fname)).readlines()
+    path = os.path.dirname(__file__) if css_directory is None else os.getcwd()
+    css_directory = css_directory if css_directory else ''
+    css = open(os.path.join(path, css_directory, fname)).readlines()
     return ''.join((' ' * 6) + l for l in css).strip()
 
 
@@ -181,7 +182,7 @@ def main(argv=None):
     parser = OptionParser(usage="Usage: %prog [options] <infile> [outfile]")
     parser.add_option("-c", "--css",
                       dest="css_directory",
-                      default="style",
+                      default=None,
                       help="Where to look for CSS files")
     parser.add_option("-d", "--debug",
                       action="store_true",

@@ -12,7 +12,8 @@ import re
 import sys
 from optparse import OptionParser
 
-with open("doctool/version.py") as f:
+_version_file_path = os.path.join(os.path.dirname(__file__), 'version.py')
+with open(_version_file_path) as f:
     exec(f.read())
 
 html_wrap = """\

@@ -1,6 +1,8 @@
 from distutils.core import setup
+import os
 
-with open("doctool/version.py") as f:
+_version_file_path = os.path.join(os.path.dirname(__file__), 'doctool/version.py')
+with open(_version_file_path) as f:
     exec(f.read())
 
 setup(

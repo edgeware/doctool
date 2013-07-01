@@ -12,6 +12,9 @@ import re
 import sys
 from optparse import OptionParser
 
+with open("doctool/version.py") as f:
+    exec(f.read())
+
 html_wrap = """\
 <html>
   <head>
@@ -179,7 +182,8 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
 
-    parser = OptionParser(usage="Usage: %prog [options] <infile> [outfile]")
+    parser = OptionParser(usage="Usage: %prog [options] <infile> [outfile]",
+                          version=__version__)
     parser.add_option("-c", "--css",
                       dest="css_directory",
                       default=None,

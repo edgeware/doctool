@@ -1,8 +1,11 @@
 from distutils.core import setup
 
+with open("doctool/version.py") as f:
+    exec(f.read())
+
 setup(
     name='doctool',
-    version='0.4',
+    version=__version__,
     packages=['doctool'],
     package_data={'doctool': ['style/*']},
     entry_points={

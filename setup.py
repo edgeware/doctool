@@ -15,7 +15,7 @@ setup(
             'doctool = doctool.doctool:main'
         ]},
     install_requires=[
-        'markdown',
+        'markdown==2.2.1',
         'jsontemplate',
         'python-markdown-graphviz'
     ],

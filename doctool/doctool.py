@@ -5,6 +5,9 @@
 Markdown files.
 """
 
+import pkg_resources
+version = pkg_resources.require("doctool")[0].version
+
 import markdown
 import jsontemplate
 import os.path
@@ -179,7 +182,8 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
 
-    parser = OptionParser(usage="Usage: %prog [options] <infile> [outfile]")
+    parser = OptionParser(usage="Usage: %prog [options] <infile> [outfile]",
+                          version=version)
     parser.add_option("-c", "--css",
                       dest="css_directory",
                       default=None,

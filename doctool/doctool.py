@@ -5,16 +5,15 @@
 Markdown files.
 """
 
+import pkg_resources
+version = pkg_resources.require("doctool")[0].version
+
 import markdown
 import jsontemplate
 import os.path
 import re
 import sys
 from optparse import OptionParser
-
-_version_file_path = os.path.join(os.path.dirname(__file__), 'version.py')
-with open(_version_file_path) as f:
-    exec(f.read())
 
 html_wrap = """\
 <html>
@@ -184,7 +183,7 @@ def main(argv=None):
         argv = sys.argv
 
     parser = OptionParser(usage="Usage: %prog [options] <infile> [outfile]",
-                          version=__version__)
+                          version=version)
     parser.add_option("-c", "--css",
                       dest="css_directory",
                       default=None,

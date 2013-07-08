@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='doctool',
-    version=0.5,
+    version=0.6,
     packages=['doctool'],
     package_data={'doctool': ['style/*']},
     entry_points={
@@ -15,5 +15,5 @@ setup(
         'python-markdown-graphviz'
     ],
     dependency_links=[
-        'https://github.com/mikaellanger/python-markdown-graphviz/archive/master.tar.gz#egg=python-markdown-graphviz-master']
+        'https://github.com/edgeware/python-markdown-graphviz/archive/master.tar.gz#egg=python-markdown-graphviz-master']
 )

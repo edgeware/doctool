@@ -15,5 +15,5 @@ setup(
         'python-markdown-graphviz'
     ],
     dependency_links=[
-        'https://github.com/mikaellanger/python-markdown-graphviz/archive/master.tar.gz#egg=python-markdown-graphviz-master']
+        'https://github.com/edgeware/python-markdown-graphviz/archive/master.tar.gz#egg=python-markdown-graphviz-master']
 )

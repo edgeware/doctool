@@ -64,7 +64,6 @@ def _resolve_internal_links(text):
         if anchor in anchors:
             raise ValueError("Anchor already exists: %s" % anchor)
         anchors[anchor] = title
-        text = text.replace('{' + anchor + '}', '')
 
     for r in internal_link_regexp.finditer(text):
         link, anchor = r.group(), r.group(2)

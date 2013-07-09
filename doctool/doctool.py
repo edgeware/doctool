@@ -64,7 +64,6 @@ def _resolve_internal_links(text):
         if anchor in anchors:
             raise ValueError("Anchor already exists: %s" % anchor)
         anchors[anchor] = title
-        text = text.replace('{' + anchor + '}', '')
 
     for r in internal_link_regexp.finditer(text):
         link, anchor = r.group(), r.group(2)
@@ -145,7 +144,7 @@ def _convert(files):
     text = _resolve_internal_links(text)
     md = markdown.Markdown(
         extensions=[
-                'toc', 'def_list', 'headerid', 'tables', 'graphviz', 'ditaa'],
+                'toc', 'def_list', 'headerid', 'tables', 'graphviz', 'ditaa', 'extra'],
         output_format='html4',
         extension_configs={
             'graphviz': {},

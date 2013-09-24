@@ -144,11 +144,14 @@ def _convert(files):
     text = _resolve_internal_links(text)
     md = markdown.Markdown(
         extensions=[
-                'toc', 'def_list', 'headerid', 'tables', 'graphviz', 'ditaa', 'extra'],
+            'toc', 'def_list', 'headerid', 'tables',
+            'graphviz', 'ditaa', 'plantuml',
+            'extra'],
         output_format='html4',
         extension_configs={
             'graphviz': {},
-            'ditaa': {}
+            'ditaa': {},
+            'plantuml': {}
         },
     )
     return md.convert(''.join(text))

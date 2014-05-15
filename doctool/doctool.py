@@ -109,7 +109,7 @@ def _number_headers(text):
     return text
 
 
-def _convert(files):
+def _convert(files, extra_extensions):
     text = []
 
     # set to True as we don't want the newline-mechanism to kick in
@@ -142,11 +142,13 @@ def _convert(files):
     text = include_regexp.sub('', ''.join(text))
     text = _number_headers(text)
     text = _resolve_internal_links(text)
+
+    extensions = ['toc', 'def_list', 'headerid', 'tables',
+                  'graphviz', 'ditaa', 'plantuml', 'extra']
+    extensions.extend(extra_extensions)
+
     md = markdown.Markdown(
-        extensions=[
-            'toc', 'def_list', 'headerid', 'tables',
-            'graphviz', 'ditaa', 'plantuml',
-            'extra'],
+        extensions=extensions,
         output_format='html4',
         extension_configs={
             'graphviz': {},
@@ -164,10 +166,10 @@ def _load_css(fname, css_directory):
     return ''.join((' ' * 6) + l for l in css).strip()
 
 
-def build_single_file(infile, outfile, css_directory):
+def build_single_file(infile, outfile, css_directory, extra_extensions):
     files = []
     _find_files(files, infile)
-    text = _convert(files)
+    text = _convert(files, extra_extensions)
 
     screen_css = _load_css('style.css', css_directory)
     print_css = _load_css('print.css', css_directory)
@@ -195,6 +197,10 @@ def main(argv=None):
                       dest="debug",
                       default=False,
                       help="Turn on debugging")
+    parser.add_option("-e", "--add-extra-extensions",
+                      dest="extra_extensions",
+                      default=[],
+                      help="Use extra extensions (comma-separated)")
     (options, args) = parser.parse_args(argv)
 
     if len(args) == 2:
@@ -206,7 +212,12 @@ def main(argv=None):
     global DEBUG
     DEBUG = options.debug
 
-    build_single_file(args[1], args[2], options.css_directory)
+    extra_extensions = options.extra_extensions
+    if options.extra_extensions != []:
+        extra_extensions = options.extra_extensions.split(",")
+
+    build_single_file(args[1], args[2], options.css_directory,
+                      extra_extensions)
     return 0
 
 if __name__ == '__main__':

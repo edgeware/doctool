@@ -12,8 +12,6 @@ setup(
     install_requires=[
         'markdown',
         'jsontemplate',
-        'python-markdown-graphviz'
-    ],
-    dependency_links=[
-        'https://github.com/edgeware/python-markdown-graphviz/archive/master.tar.gz#egg=python-markdown-graphviz-master']
+        'markdown-inline-graphviz-extension'
+    ]
 )

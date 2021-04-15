@@ -45,7 +45,7 @@ DEBUG = None
 
 def _debug(msg):
     if DEBUG:
-        print msg
+        print(msg)
 
 def _find_files(seen, filename):
     seen.append(filename)

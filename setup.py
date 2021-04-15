@@ -13,5 +13,6 @@ setup(
         'markdown',
         'jsontemplate',
         'markdown-inline-graphviz-extension'
-    ]
+    ],
+    python_requires=">=3"
 )
